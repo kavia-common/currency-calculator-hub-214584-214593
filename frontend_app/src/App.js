@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import './App.css';
 import { getBaseUrl } from './config/env';
+import Calculator from './components/Calculator';
 
 /**
  * Core app shell with Ocean Professional theme.
@@ -84,10 +85,7 @@ function App() {
             <span className="badge badge-amber">Module</span>
           </header>
           <div className="card-body">
-            {/* Placeholder: Implement calculator module */}
-            <div className="placeholder">
-              <p>Calculator module coming next…</p>
-            </div>
+            <Calculator />
           </div>
         </section>
 

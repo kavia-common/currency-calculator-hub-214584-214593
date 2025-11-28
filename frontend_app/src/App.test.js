@@ -7,8 +7,8 @@ test('renders app header title', () => {
   expect(heading).toBeInTheDocument();
 });
 
-test('renders calculator section placeholder', () => {
+test('renders calculator initial display', () => {
   render(<App />);
-  const calcPlaceholder = screen.getByText(/Calculator module coming next/i);
-  expect(calcPlaceholder).toBeInTheDocument();
+  const displayZero = screen.getByText(/^0$/);
+  expect(displayZero).toBeInTheDocument();
 });
