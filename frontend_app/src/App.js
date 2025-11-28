@@ -3,6 +3,7 @@ import './App.css';
 import { getBaseUrl } from './config/env';
 import Calculator from './components/Calculator';
 import CurrencyConverter from './components/CurrencyConverter';
+import DailyRates from './components/DailyRates';
 
 /**
  * Core app shell with Ocean Professional theme.
@@ -108,10 +109,7 @@ function App() {
             <span className="badge badge-neutral">Today</span>
           </header>
           <div className="card-body">
-            {/* Placeholder: Implement daily rates list */}
-            <div className="placeholder">
-              <p>Daily rates overview will display here.</p>
-            </div>
+            <DailyRates />
           </div>
         </section>
       </main>
