@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import './App.css';
+import { getBaseUrl } from './config/env';
 
 /**
  * Core app shell with Ocean Professional theme.
@@ -67,6 +68,9 @@ function App() {
           <h2 className="hero-title">All-in-one currency tools</h2>
           <p className="hero-desc">
             Calculate, convert, and review daily rates in a modern, responsive interface.
+          </p>
+          <p className="muted" style={{ marginTop: '8px', fontSize: '0.85rem' }}>
+            API base: {getBaseUrl()}
           </p>
         </div>
       </section>
