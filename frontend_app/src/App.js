@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import './App.css';
 import { getBaseUrl } from './config/env';
 import Calculator from './components/Calculator';
+import CurrencyConverter from './components/CurrencyConverter';
 
 /**
  * Core app shell with Ocean Professional theme.
@@ -96,10 +97,7 @@ function App() {
             <span className="badge badge-blue">Live</span>
           </header>
           <div className="card-body">
-            {/* Placeholder: Implement currency converter */}
-            <div className="placeholder">
-              <p>Currency converter UI to be implemented.</p>
-            </div>
+            <CurrencyConverter />
           </div>
         </section>
 
