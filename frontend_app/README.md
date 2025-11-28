@@ -1,82 +1,75 @@
-# Lightweight React Template for KAVIA
+# Currency Calculator Hub — Frontend App
 
-This project provides a minimal React template with a clean, modern UI and minimal dependencies.
+A lightweight React (Create React App) UI that provides:
+- A calculator
+- A currency converter
+- A daily exchange rates view (using public API fallback or a configured backend)
 
-## Features
+## Run locally
 
-- **Lightweight**: No heavy UI frameworks - uses only vanilla CSS and React
-- **Modern UI**: Clean, responsive design with KAVIA brand styling
-- **Fast**: Minimal dependencies for quick loading times
-- **Simple**: Easy to understand and modify
+- Install dependencies:
+  - npm: `npm install`
+  - yarn: `yarn`
 
-## Getting Started
+- Start in development mode:
+  - npm: `npm start`
+  - yarn: `yarn start`
+  - App URL: http://localhost:3000
 
-In the project directory, you can run:
+- Run tests:
+  - npm: `npm test`
+  - yarn: `yarn test`
 
-### `npm start`
+- Build for production:
+  - npm: `npm run build`
+  - yarn: `yarn build`
 
-Runs the app in development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Environment variables
 
-### `npm test`
+Set variables in a `.env` file at the project root (must be prefixed with REACT_APP_ to be exposed to the browser in Create React App).
 
-Launches the test runner in interactive watch mode.
+- REACT_APP_API_BASE
+  - Description: Preferred base URL for the API the frontend should call (e.g., https://api.example.com).
+  - Used first when resolving API calls.
 
-### `npm run build`
+- REACT_APP_BACKEND_URL
+  - Description: Alternate/secondary base URL for the backend. Used if REACT_APP_API_BASE is not set.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- REACT_APP_FEATURE_FLAGS
+  - Description: Comma-separated flags parsed into an object. Examples:
+    - "alpha,beta" => { alpha: true, beta: true }
+    - "alpha=true,beta=false,gamma" => { alpha: true, beta: false, gamma: true }
 
-## Customization
+- REACT_APP_EXPERIMENTS_ENABLED
+  - Description: Enables experimental features. Accepted truthy values: 1,true,yes,on,y (case-insensitive). Default: false.
 
-### Colors
+- REACT_APP_LOG_LEVEL
+  - Description: Log level for client-side logs. One of: trace, debug, info, warn, error, silent. Default: info.
 
-The main brand colors are defined as CSS variables in `src/App.css`:
+- REACT_APP_NEXT_TELEMETRY_DISABLED
+  - Description: When true, telemetry is disabled. Accepted truthy values: 1,true,yes,on,y. Default: false.
 
-```css
-:root {
-  --kavia-orange: #E87A41;
-  --kavia-dark: #1A1A1A;
-  --text-color: #ffffff;
-  --text-secondary: rgba(255, 255, 255, 0.7);
-  --border-color: rgba(255, 255, 255, 0.1);
-}
-```
+Additional (present in this container):
+- REACT_APP_FRONTEND_URL
+- REACT_APP_WS_URL
+- REACT_APP_NODE_ENV
+- REACT_APP_ENABLE_SOURCE_MAPS
+- REACT_APP_PORT
+- REACT_APP_TRUST_PROXY
+- REACT_APP_HEALTHCHECK_PATH
 
-### Components
+These may be used by tooling or deployment environments. Only REACT_APP_* variables are exposed to the React bundle.
 
-This template uses pure HTML/CSS components instead of a UI framework. You can find component styles in `src/App.css`. 
+## API base resolution and public fallback
 
-Common components include:
-- Buttons (`.btn`, `.btn-large`)
-- Container (`.container`)
-- Navigation (`.navbar`)
-- Typography (`.title`, `.subtitle`, `.description`)
+The app resolves its API base in this order:
+1) REACT_APP_API_BASE (if set)
+2) REACT_APP_BACKEND_URL (if set)
+3) Fallback to window.location.origin
 
-## Learn More
+If the effective base points to the same origin as the frontend (or no env is set), the app will use a public API fallback for currency data:
+- https://api.exchangerate.host
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This allows the app to function locally without a dedicated backend. To force calls to your own backend, set REACT_APP_API_BASE (or REACT_APP_BACKEND_URL) to a different origin that exposes compatible endpoints:
+- GET /latest?base=USD
+- GET /symbols
